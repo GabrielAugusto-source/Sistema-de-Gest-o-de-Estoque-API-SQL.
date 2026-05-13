@@ -2,29 +2,42 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>SGE - Gestão de Estoque</title>
+    <title>Gestor de Estoque</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
     <div class="container">
-        <h1>Gestor de Estoque</h1>
+        <div class="header-center">
+            <h1>Gestor de Estoque</h1>
+        </div>
 
-        
         <section class="form-section">
             <h2>Cadastrar Novo Produto</h2>
             <form id="product-form">
-                <input type="text" id="name" placeholder="Nome do Produto" required>
-                <input type="number" id="quantity" placeholder="Quantidade" required>
-                <input type="number" step="0.01" id="price" placeholder="Preço (ex: 10.50)" required>
-                <input type="number" id="category_id" placeholder="ID da Categoria" required>
-                <input type="number" id="supplier_id" placeholder="ID do Fornecedor" required>
+                <div class="input-group">
+                    <label>Nome do Produto</label>
+                    <input type="text" id="name" placeholder="Ex: Mouse Gamer" required>
+                </div>
+                <div class="input-group">
+                    <label>Quantidade</label>
+                    <input type="number" id="quantity" placeholder="0" required>
+                </div>
+                <div class="input-group">
+                    <label>Preço</label>
+                    <input type="number" step="0.01" id="price" placeholder="0.00" required>
+                </div>
+                <div class="input-group">
+                    <label>ID Categoria</label>
+                    <input type="number" id="category_id" placeholder="Ex: 1" required>
+                </div>
+                <div class="input-group">
+                    <label>ID Fornecedor</label>
+                    <input type="number" id="supplier_id" placeholder="Ex: 1" required>
+                </div>
                 <button type="submit">Salvar Produto</button>
             </form>
         </section>
 
-        <hr>
-
-        
         <section class="list-section">
             <h2>Produtos em Estoque</h2>
             <table id="product-table">
@@ -38,12 +51,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                
+                    <!-- Preenchido pelo JS -->
                 </tbody>
             </table>
         </section>
     </div>
-
     <script src="/static/script.js"></script>
 </body>
 </html>
