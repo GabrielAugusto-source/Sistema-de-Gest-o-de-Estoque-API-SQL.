@@ -13,7 +13,7 @@ def create_category(db: Session, category: schemas.CategoryCreate):
 def get_categories(db: Session):
     return db.query(models.Category).all()
 
-def createproduct(db: Session, product: schemas.ProductCreate):
+def create_product(db: Session, product: schemas.ProductCreate):
     db_product = models.Product(
         name=product.name,
         quantity=product.quantity,
@@ -72,3 +72,6 @@ def delete_all_categories(db: Session):
     db.query(models.Category).delete()
     db.commit()
     return True
+
+def get_suppliers(db: Session):
+    return db.query(models.Supplier).all()
