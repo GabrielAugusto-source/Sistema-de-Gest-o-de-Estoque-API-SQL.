@@ -1,4 +1,6 @@
-from fastapi import FastAPI, Depends, HTTPException
+from fastapi import FastAPI, Depends, HTTPException, Request
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import Session
 from . import crud, models, schemas
 from .database import get_db, engine
@@ -8,7 +10,10 @@ from .database import get_db, engine
 models.Base.metadata.create_all(bind=engine)
 
 
-app = FastAPI(title="SGE - Sistema de Gerenciamento de Estoque", version="1.0.0")
+app = FastAPI(title="Sistema de Gerenciamento de Estoque", version="1.0.0")
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
+templates = Jinja2Templates(directory="templates")
 
 @app.delete("/categories/all")
 def delete_all_categories(db: Session = Depends(get_db)):
@@ -78,5 +83,13 @@ def delete_category(category_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Category not found")
     return {"detail": "Category deleted successfully"}
 
+
+
+@app.get("/", response_class=None)
+def read_root(request: Request):
+    return templates.TemplateResponse(
+        request=request,
+        name="index.html"
+    )
 
 
