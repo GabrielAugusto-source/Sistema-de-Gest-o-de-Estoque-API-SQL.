@@ -2,14 +2,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const productForm = document.getElementById('product-form');
     const productTableBody = document.querySelector('#product-table tbody');
 
-
     async function loadProducts() {
         try {
             const response = await fetch('/products/');
             const products = await response.json();
-
             productTableBody.innerHTML = '';
-
+            
             products.forEach(prod => {
                 const row = `
                     <tr>
@@ -32,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     productForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-
+        
         const data = {
             name: document.getElementById('name').value,
             quantity: parseInt(document.getElementById('quantity').value),
@@ -49,32 +47,58 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (response.ok) {
-                alert("Produto salvo com sucesso!");
+                Swal.fire({
+                    title: 'Sucesso!',
+                    text: 'Produto cadastrado com sucesso no estoque!',
+                    icon: 'success',
+                    confirmButtonColor: '#27ae60'
+                });
                 productForm.reset();
                 loadProducts();
             } else {
-                alert("Erro ao salvar. Verifique se os IDs de Categoria e Fornecedor existem.");
+                Swal.fire({
+                    title: 'Erro!',
+                    text: 'Verifique se os IDs de Categoria e Fornecedor existem.',
+                    icon: 'error',
+                    confirmButtonColor: '#e74c3c'
+                });
             }
         } catch (error) {
-            console.error("Erro na requisição:", error);
+            console.error("Erro ao cadastrar produto:", error);
         }
     });
 
 
     window.deleteProduct = async (id) => {
-        if (confirm("Tem certeza que deseja excluir este produto?")) {
-            try {
-                const response = await fetch(`/products/${id}`, { method: 'DELETE' });
-                if (response.ok) {
-                    alert("Produto removido!");
-                    loadProducts();
+        Swal.fire({
+            title: 'Tem certeza?',
+            text: "Este produto será removido permanentemente!",
+            icon: 'attention',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sim, deletar!',
+            cancelButtonText: 'Cancelar'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    const response = await fetch(`/products/${id}`, {
+                        method: 'DELETE'
+                    });
+                    if (response.ok) {
+                        Swal.fire(
+                            'Deletado!',
+                            'O produto foi removido do estoque.',
+                            'success'
+                        );
+                        loadProducts();
+                    }
+                } catch (error) {
+                    console.error("Erro ao deletar:", error);
                 }
-            } catch (error) {
-                console.error("Erro ao deletar:", error);
             }
-        }
-    }
-
+        });
+    };
 
     loadProducts();
 });
