@@ -2,7 +2,7 @@ from sqlalchemy import Column, Integer, String, Float, ForeignKey
 from sqlalchemy.orm import relationship
 from .database import Base
 
-# --- CATEGORIA (Tudo na margem esquerda!) ---
+
 class Category(Base):
     __tablename__ = "categories"
 
@@ -11,7 +11,7 @@ class Category(Base):
 
     products = relationship("Product", back_populates="category")
 
-# --- FORNECEDOR (Tudo na margem esquerda!) ---
+
 class Supplier(Base):
     __tablename__ = "suppliers"
 
@@ -21,7 +21,7 @@ class Supplier(Base):
 
     products = relationship("Product", back_populates="supplier")
 
-# --- PRODUTO (Tudo na margem esquerda!) ---
+
 class Product(Base):
     __tablename__ = "products"
 

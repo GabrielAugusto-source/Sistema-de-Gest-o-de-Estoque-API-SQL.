@@ -1,4 +1,4 @@
-/* Reset básico para tirar as margens chatas do navegador */
+
 * {
     margin: 0;
     padding: 0;
@@ -7,7 +7,7 @@
 }
 
 body {
-    background-color: #f0f2f5; /* Cinza azulada bem leve e profissional */
+    background-color: #f0f2f5;
     color: #333;
     padding: 40px 20px;
 }
@@ -44,7 +44,7 @@ h2 {
     gap: 10px;
 }
 
-/* Estilo do Formulário */
+
 .form-section {
     background: #fdfdfd;
     padding: 25px;
@@ -103,7 +103,7 @@ button:hover {
     box-shadow: 0 5px 15px rgba(39, 174, 96, 0.3);
 }
 
-/* Estilo da Tabela */
+
 .list-section {
     margin-top: 20px;
 }

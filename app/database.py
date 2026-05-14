@@ -6,12 +6,12 @@ SQLALCHEMY_DATABASE_URL = "postgresql://postgres:0311@localhost:5432/sge_db"
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
-SessionLocar = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()
 
 def get_db():
-    db = SessionLocar()
+    db = SessionLocal()
     try:
         yield db
     finally:
